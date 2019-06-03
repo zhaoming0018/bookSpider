@@ -1,0 +1,70 @@
+{% extends "admin/layout.html" %}
+
+{% block myStyle %}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2 class="sub-header">图书列表</h2>
+
+<div class="panel panel-default">
+  <div class="panel-heading">查询条件</div>
+  <div class="panel-body">
+      <form id="formSearch" action="/admin/book/list" class="form-horizontal">
+          <div class="form-group" style="margin-top:15px">
+              <label class="control-label col-sm-1" for="txt_search_departmentname">标题</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control" name="bookname" value="{{ request.args.get('bookname','') }}">
+              </div>
+              <label class="control-label col-sm-1" for="txt_search_statu">作者</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control" name="author" value="{{ request.args.get('author','') }}">
+              </div>
+              <label class="control-label col-sm-1" for="txt_search_statu">排序</label>
+              <div class="col-sm-2">
+                <select class="form-control" name="order">
+                  <option value="0" {% if request.args.get('order','') == '0'  %}selected{% endif %}>无</option>
+                  <option value="1" {% if request.args.get('order','') == '1'  %}selected{% endif %}>价格升序</option>
+                  <option value="2" {% if request.args.get('order','') == '2'  %}selected{% endif %}>价格降序</option>
+                  <option value="3" {% if request.args.get('order','') == '3'  %}selected{% endif %}>评分升序</option>
+                  <option value="4" {% if request.args.get('order','') == '4'  %}selected{% endif %}>评分降序</option>
+                </select>
+              </div>
+              <div class="col-sm-3" style="text-align:left;">
+                  <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary" onclick="submit()">查询</button>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>    
+<a id="btn_add" class="btn btn-default" href="/admin/book/add">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+</a>
+<div class="table-responsive">
+  <table data-toggle="table">
+    <thead>
+      <tr>
+        <th>#</th><th>标题</th><th>作者</th><th>价格</th>
+        <th>排序</th><th>来源</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ book['id'] }}</td>
+        <td><a href="{{ book['link'] }}">{{ book['bookname'] }}</a></td>
+        <td>{{ book['author'] }}</td>
+        <td>￥{{ book['price'] }}</td>
+        <td>{{ book['grade'] }}</td>
+        <td>{{ book['come_from'] }}</td>
+        <td><a href="/admin/book/view?id={{ book['id'] }}">点此查看</a>|<a href="/admin/book/delete/{{ book['id'] }}">删除</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{{ pageinfo }}
+{% endblock %}
+
+
+

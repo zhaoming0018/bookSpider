@@ -1,0 +1,25 @@
+{% extends 'search/layout.html' %}
+{% block content %}
+<ul class="media-list" style="margin-top:100px;margin-bottom:100px; text-align:left;">
+    {% for book in books %}
+    <li class="media">
+        <div class="media-left">
+            <a href="{{ book['link'] }}">
+            <img class="media-object" width="200px" height="200px" src="{{ book['pic'] }}" alt="...">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">{{ book['name'] | truncate(18) }}</h4>
+            <p><span>价格：{{ book['price'] }}</span>
+                <span>原价：{{ book['price_r'] }}</span>
+                <span>评价：{{ book['grade'] }}</span>
+            </p>
+            <p><span>作者：{{ book['author'] }}</span></p>
+            <p><span>出版社：{{ book['publish'] }}</span></p>
+            <p>{{ book['description']}}</p>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{{ html }}
+{% endblock %}

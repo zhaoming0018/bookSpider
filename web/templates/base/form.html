@@ -1,0 +1,4 @@
+{% macro input(name, value='', type='text', placeholder='') -%}
+    <input type="{{ type }}" value="{{ value|e }}" name="{{ name }}" placeholder="{{ placeholder }}" />
+{%- endmacro %}
+

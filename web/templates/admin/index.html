@@ -1,0 +1,51 @@
+{% extends "admin/layout.html" %}
+{% block myStyle %}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <h1 class="page-header">基于爬虫的图书管理系统</h1>
+  <div class="row placeholders">
+      <div class="jumbotron">
+          <h2>介绍</h2>
+          <p>这是一个图书管理系统</p>
+          <p>使用Scrapy爬取图书信息</p>
+          <p>数据来自苏宁，京东，当当</p>
+          <p>
+            <a class="btn btn-lg btn-primary" href="/search/index" role="button">使用搜索系统</a>
+          </p>
+        </div>
+  </div>
+
+
+<h2 class="sub-header">图书列表</h2>
+<div class="table-responsive">
+  <table data-toggle="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>标题</th>
+        <th>作者</th>
+        <th>价格</th>
+        <th>排序</th>
+        <th>来源</th>
+        <th>查看</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td>{{ book['id'] }}</td>
+        <td>{{ book['name'] }}</td>
+        <td>{{ book['author'] }}</td>
+        <td>{{ book['price'] }}</td>
+        <td>{{ book['grade'] }}</td>
+        <td>{{ book['come_from'] }}</td>
+        <td><a href="{{ book['link'] }}">点此查看</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+ 
+{% endblock %}

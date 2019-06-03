@@ -1,0 +1,24 @@
+{% extends "admin/layout.html" %}
+{% macro form_group(name, comment) -%}
+        <div class="form-group">
+            <label for="{{ name }}">{{ comment }}</label>
+            <input type="password" class="form-control" id="{{ name }}" name="{{ name }}" value="">
+        </div>
+{%- endmacro %}
+{% block myStyle %}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="POST">
+      <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
+        <p><span style="color:red">{{ message }}</span></p>
+        <form>
+            {{ form_group('cur_passwd', '当前密码') }}
+            {{ form_group('passwd', '新密码') }}
+            {{ form_group('confirm', '再次输入新密码') }}
+            <button type="submit" class="btn btn-primary">修改密码</button>
+            </form>
+        </div>
+    </form>
+{% endblock %}

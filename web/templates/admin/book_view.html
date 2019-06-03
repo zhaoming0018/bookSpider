@@ -1,0 +1,39 @@
+{% extends "admin/layout.html" %}
+{% macro form_group(name, comment) -%}
+        <div class="form-group">
+            <label for="{{ name }}">{{ comment }}</label>
+            <input type="text" class="form-control" id="{{ name }}" name="{{name}}" value="{% if book[name] is none %}无{% else %}{{ book[name] }}{% endif %}">
+        </div>
+{%- endmacro %}
+
+{% block myStyle %}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="x_content">
+    <h2>图书详情</h2>
+    <hr/>
+    <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
+    <form action="/admin/book/change/{{ book['id'] }}" method="POST">
+        {{ form_group('bookname', '标题') }}
+        {{ form_group('link', '链接') }}
+        {{ form_group('come_from', '来源') }}
+        {{ form_group('author', '作者') }}
+        {{ form_group('publish', '出版商') }}
+        {{ form_group('depict', '描述') }}
+        {{ form_group('price', '价格') }}
+        {{ form_group('price_r', '原价') }}
+        {{ form_group('grade', '评分') }}
+        <button type="submit" class="btn btn-primary">修改信息</button>
+        </form>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+        <div class="product-image">
+            <a href="{{ book['link'] }}">
+            <img src="{{ book['pic'] }}" width="100%" alt="{{ book['name'] | truncate(10) }}"/>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

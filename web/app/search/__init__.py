@@ -1,0 +1,1 @@
+from app.search.BlueSearch import search

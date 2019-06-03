@@ -1,0 +1,30 @@
+{% extends 'search/layout.html' %}
+{% block myStyle%}
+<script>
+  function redirect_search()
+  {
+    var word = document.getElementsByName('word')[0].value;
+    var chosen = document.getElementsByName('kind')[1].checked;
+    var type = chosen?'author':'name'
+    location.href = "/search/list?word="+word+"&type="+type;
+  }
+</script>
+{% endblock %}
+{% block content %}   
+<h1 class="cover-heading">图书搜索</h1>
+<p class="lead">
+  <div class="input-group">
+      <input type="text" class="form-control" name="word" placeholder="">
+      <span class="input-group-addon" id="nickname"><a href="javascript:redirect_search()" style="color:black">搜索</a></span>
+  </div>
+</p>
+<div class="row">
+  <div class="col-md-3 col-md-offset-2">
+      <input type="radio" name="kind" value="title" checked><span>书名</span>
+  </div>
+  <div class="col-md-3 col-md-offset-2">
+      <input type="radio" name="kind" value="author"><span>作者</span>
+  </div>
+</div>
+
+{% endblock %}

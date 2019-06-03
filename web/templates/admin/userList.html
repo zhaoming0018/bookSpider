@@ -1,0 +1,42 @@
+{% extends "admin/layout.html" %}
+
+{% block myStyle %}
+  <link href="/static/css/dashboard.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2 class="sub-header">用户列表</h2>
+<a id="btn_add" class="btn btn-default" href="/admin/user/add">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+</a>
+<div class="table-responsive">
+  <table data-toggle="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>用户名</th>
+        <th>昵称</th>
+        <th>邮箱</th>
+        <th>电话</th>
+        <th>密码</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+      <tr>
+        <td>{{ d['id'] }}</td>
+        <td>{{ d['username'] }}</td>
+        <td>{{ d['nickname'] }}</td>
+        <td>{{ d['email'] }}</td>
+        <td>{{ d['phone'] }}</td>
+        <td>{{ d['passwd'] }}</td>
+        <td><a href="/admin/user/show?id={{ d['id'] }}">编辑</a>|
+        <a href="/admin/user/delete?id={{ d['id'] }}">删除</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{{ pageinfo }}
+{% endblock %}
