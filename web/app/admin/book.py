@@ -26,7 +26,7 @@ def book_list():
 def delete_book(id):
     bookModel = BookModel()
     bookModel.delete(id)
-    return redirect('admin/book/list/')
+    return redirect('/admin/book/list/')
 
 # 查看书
 @admin.route('/book/view')

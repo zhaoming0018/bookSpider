@@ -40,11 +40,16 @@ def register():
 @login_required
 def book_list():
     page = int(request.args.get('page', 1))
-    kind = request.args.get('type', None)
-    word = request.args.get('word', None)
+    kind = request.args.get('kind', None)
+    word = request.args.get('word', '')
+    order = request.args.get('order', '')
     condition = {}
     if kind is not None:
-        condition[kind] = word
+        if kind == '0':
+            condition['bookname'] = word
+        else:
+            condition['author'] = word
+    condition['order'] = order
     bookModel = BookModel()
     books, count = bookModel.find(page_num=page, condition=condition)
     print(count)

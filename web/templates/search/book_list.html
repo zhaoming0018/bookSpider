@@ -1,20 +1,39 @@
 {% extends 'search/layout.html' %}
 
 {% block myStyle%}
-<script>
-  function redirect_search()
-  {
-    var word = document.getElementsByName('word')[0].value;
-    var chosen = document.getElementsByName('kind')[1].checked;
-    var type = chosen?'author':'bookname'
-    location.href = "/search/list?word="+word+"&type="+type;
-  }
-</script>
 {% endblock %}
 
 {% block content %}
-
-
+<div style="margin-top:100px"></div>
+<div class="clearfix">
+<form id="formSearch" action="">
+    <div class="form-group" style="margin-top:15px">
+        <div class="col-sm-2">
+            <input type="text" class="form-control" name="word" value="{{ request.args.get('word','') }}">
+        </div>
+        <label class="control-label col-sm-1" for="txt_search_statu">类型</label>
+        <div class="col-sm-2">
+          <select class="form-control" name="kind">
+            <option value="0" {% if request.args.get('kind','') == '0'  %}selected{% endif %}>书名</option>
+            <option value="1" {% if request.args.get('kind','') == '1'  %}selected{% endif %}>作者</option>
+          </select>
+        </div>
+        <label class="control-label col-sm-1" for="txt_search_statu">排序</label>
+        <div class="col-sm-2">
+          <select class="form-control" name="order">
+            <option value="0" {% if request.args.get('order','') == '0'  %}selected{% endif %}>无</option>
+            <option value="1" {% if request.args.get('order','') == '1'  %}selected{% endif %}>价格升序</option>
+            <option value="2" {% if request.args.get('order','') == '2'  %}selected{% endif %}>价格降序</option>
+            <option value="3" {% if request.args.get('order','') == '3'  %}selected{% endif %}>评分升序</option>
+            <option value="4" {% if request.args.get('order','') == '4'  %}selected{% endif %}>评分降序</option>
+          </select>
+        </div>
+        <div class="col-sm-3" style="text-align:left;">
+            <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary" onclick="submit()">查询</button>
+        </div>
+    </div>
+</form>
+</div>
 
 <ul class="media-list" style="margin-top:100px;margin-bottom:100px; text-align:left;">
     {% for book in books %}
@@ -41,18 +60,6 @@
 
 {{ html }}
 
-<p class="lead">
-        <div class="input-group">
-            <input type="text" class="form-control" name="word" placeholder="">
-            <span class="input-group-addon" id="nickname"><a href="javascript:redirect_search()" style="color:black">搜索</a></span>
-        </div>
-      </p>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-2">
-            <input type="radio" name="kind" value="title" checked><span>书名</span>
-        </div>
-        <div class="col-md-3 col-md-offset-2">
-            <input type="radio" name="kind" value="author"><span>作者</span>
-        </div>
-      </div>
+
+
 {% endblock %}
