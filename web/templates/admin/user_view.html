@@ -25,13 +25,13 @@
     <!-- <h2>图书详情</h2>
     <hr/> -->
     <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
-    <form action="/admin/user/add" method="POST">
+    <form action="/admin/user/modify?id={{ userInfo['id'] }}" method="POST">
         {{ form_group('username', '用户名') }}
         {{ form_group('nickname', '昵称') }}
         {{ form_group('email', '邮箱') }}
         {{ form_group('phone', '电话') }}
         {{ form_group('passwd', '密码') }}
-        <button type="submit" class="btn btn-primary">添加用户</button>
+        <button type="submit" class="btn btn-primary">保存用户</button>
     </form>
     </div>
     
