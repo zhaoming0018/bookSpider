@@ -16,8 +16,6 @@
 
 {% block content %}
 <div class="x_content">
-    <!-- <h2>图书详情</h2>
-    <hr/> -->
     <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
     <form action="" method="POST">
         {{ form_group('username', '用户名') }}
@@ -26,8 +24,9 @@
         {{ form_group('phone', '电话') }}
         {{ form_group('passwd', '密码', 'password') }}
         <button type="submit" class="btn btn-primary">保存用户</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span><a href="/search/index">返回主页</a></span>
     </form>
     </div>
-    
 </div>
 {% endblock %}

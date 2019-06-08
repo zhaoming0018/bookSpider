@@ -21,7 +21,9 @@ def login():
         if login_valid(request.form['username'], request.form['passwd']):
             session['username'] = request.form['username']
             return redirect('/search/index')
-    return render_template('search/login.html')
+        else:
+            return render_template('search/login.html', error=1)
+    return render_template('search/login.html', error=0)
 
 @search.route('/register', methods=['GET', 'POST'])
 def register():
@@ -65,4 +67,5 @@ def user_profile():
     if request.method == 'POST':
         print(request.form)
         user.modify(userInfo['id'], request.form)
+        return redirect('/search/user/profile')
     return render_template('search/profile.html', userInfo=userInfo)
