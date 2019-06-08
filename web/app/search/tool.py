@@ -54,7 +54,7 @@ def do_register(request):
 def login_valid(username, passwd):
     db = getdb()
     cursor = db.cursor()
-    sql_find_user = "select count(*) from user where username='%s' and passwd='%s'"%(username, passwd)
+    sql_find_user = "select count(*) from user where username='%s' and passwd='%s' and valid=1"%(username, passwd)
     print(sql_find_user)
     cursor.execute(sql_find_user)
     res = cursor.fetchone()[0]
