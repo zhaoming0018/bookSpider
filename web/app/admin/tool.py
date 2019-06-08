@@ -59,7 +59,7 @@ def getbooks(page_num=1, page_size=20, come_from=None, order=None):
     cursor = db.cursor(DictCursor)
     page_num = int(page_num)
     start = (page_num-1)*page_size
-    sql = "select id, name, link, come_from, author, price, grade from book"
+    sql = "select id, bookname, link, come_from, author, price, grade from book"
     if come_from is not None:
         sql += " where come_from='%s' "
     sql += " limit %d, %d" %(start, page_size)

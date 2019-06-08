@@ -5,7 +5,7 @@
   {
     var word = document.getElementsByName('word')[0].value;
     var chosen = document.getElementsByName('kind')[1].checked;
-    var type = chosen?'author':'name'
+    var type = chosen?'author':'bookname'
     location.href = "/search/list?word="+word+"&type="+type;
   }
 </script>

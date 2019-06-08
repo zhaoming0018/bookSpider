@@ -8,12 +8,12 @@ from .tool import login_required
 from models.BookModel import BookModel
 from tools.user import User
 
-search = Blueprint('search', __name__, template_folder='templates/search')
+search = Blueprint('search', __name__, template_folder='templates/')
 
 @search.route('/index')
 @login_required
 def index():
-    return render_template('index.html')
+    return render_template('search/index.html')
 
 @search.route('/login', methods=['GET', 'POST'])
 def login():
@@ -21,7 +21,7 @@ def login():
         if login_valid(request.form['username'], request.form['passwd']):
             session['username'] = request.form['username']
             return redirect('/search/index')
-    return render_template('login.html')
+    return render_template('search/login.html')
 
 @search.route('/register', methods=['GET', 'POST'])
 def register():
@@ -34,7 +34,7 @@ def register():
             do_register(request)
             return redirect('/search/login')
         else:
-            return render_template('register.html', error=error)
+            return render_template('search/register.html', error=error)
 
 @search.route('/list')
 @login_required
@@ -50,7 +50,7 @@ def book_list():
     print(count)
     page_obj = Pagination(page=page, total=int(count)//20, per_page_count=20, bs_version='3')
     html = page_obj.links
-    return render_template('book_list.html', books=books, html=html)
+    return render_template('search/book_list.html', books=books, html=html)
 
 @search.route('/user/profile', methods=['GET', 'POST'])
 @login_required
@@ -60,4 +60,4 @@ def user_profile():
     if request.method == 'POST':
         print(request.form)
         user.modify(userInfo['id'], request.form)
-    return render_template('profile.html', userInfo=userInfo)
+    return render_template('search/profile.html', userInfo=userInfo)

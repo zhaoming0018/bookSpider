@@ -3,6 +3,8 @@ from flask_paginate import Pagination
 from app.admin.tool import login_required
 from app.admin.blue import admin
 from models.BookModel import BookModel
+from werkzeug.utils import secure_filename
+import time, os
 
 # 图书列表页
 @admin.route('/book/list/', methods=['GET', 'POST'])
@@ -48,7 +50,19 @@ def book_change(id):
 @login_required
 def book_add():
     if request.method == 'POST':
+        f = request.files['pics']
+        print(f)
+        fname = secure_filename(f.filename)
+        print(fname)
+        ext = fname.rsplit('.',1)[1]  # 获取文件后缀
+        unix_time = int(time.time())
+        new_filename=str(unix_time)+'.'+ext  # 修改了上传的文件名
+        file_dir = "./static/upload/"
+        pic = os.path.join(file_dir,new_filename)  #保存文件到upload目录
+        f.save(pic)
+        file_dir = "/static/upload/"
+        pic = os.path.join(file_dir,new_filename)  #保存文件到upload目录
         bookModel = BookModel()
-        if bookModel.add(request.form):
+        if bookModel.add(request.form, pic):
             return redirect('/admin/book/list/')
     return render_template('admin/book_add.html', func='book')

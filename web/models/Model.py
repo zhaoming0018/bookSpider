@@ -8,7 +8,10 @@ class Model():
         self.cursor = self.db.cursor(DictCursor)
         self.tableName = tableName
     
-    def add(self, one:dict):
+    def add(self, one:dict, pic=None):
+        one = dict(one)
+        if pic is not None:
+            one['pic'] = pic
         keys = ', '.join(one.keys())
         values = ','.join(map(lambda x: '"%s"'%one.get(x,''), one.keys()))
         sql = "insert into %s(%s) values (%s)"%(self.tableName, keys, values)

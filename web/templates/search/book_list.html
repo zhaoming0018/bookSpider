@@ -1,5 +1,21 @@
 {% extends 'search/layout.html' %}
+
+{% block myStyle%}
+<script>
+  function redirect_search()
+  {
+    var word = document.getElementsByName('word')[0].value;
+    var chosen = document.getElementsByName('kind')[1].checked;
+    var type = chosen?'author':'bookname'
+    location.href = "/search/list?word="+word+"&type="+type;
+  }
+</script>
+{% endblock %}
+
 {% block content %}
+
+
+
 <ul class="media-list" style="margin-top:100px;margin-bottom:100px; text-align:left;">
     {% for book in books %}
     <li class="media">
@@ -9,17 +25,34 @@
             </a>
         </div>
         <div class="media-body">
-            <h4 class="media-heading">{{ book['name'] | truncate(18) }}</h4>
+            <h4 class="media-heading">{{ book['bookname'] }}</h4>
             <p><span>价格：{{ book['price'] }}</span>
                 <span>原价：{{ book['price_r'] }}</span>
                 <span>评价：{{ book['grade'] }}</span>
             </p>
             <p><span>作者：{{ book['author'] }}</span></p>
             <p><span>出版社：{{ book['publish'] }}</span></p>
-            <p>{{ book['description']}}</p>
+            <p>{{ book['depict']}}</p>
         </div>
     </li>
     {% endfor %}
 </ul>
+
+
 {{ html }}
+
+<p class="lead">
+        <div class="input-group">
+            <input type="text" class="form-control" name="word" placeholder="">
+            <span class="input-group-addon" id="nickname"><a href="javascript:redirect_search()" style="color:black">搜索</a></span>
+        </div>
+      </p>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+            <input type="radio" name="kind" value="title" checked><span>书名</span>
+        </div>
+        <div class="col-md-3 col-md-offset-2">
+            <input type="radio" name="kind" value="author"><span>作者</span>
+        </div>
+      </div>
 {% endblock %}

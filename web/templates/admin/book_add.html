@@ -9,14 +9,14 @@
 {% block myStyle %}
   <link href="/static/css/dashboard.css" rel="stylesheet">
   <script>
-        function changepic() {
-            var reads = new FileReader();
-            f = document.getElementById('file').files[0];
-            reads.readAsDataURL(f);
-            reads.onload = function(e) {
-            document.getElementById('pic').src = this.result;
-            };
-           }
+    function changepic() {
+        var reads = new FileReader();
+        f = document.getElementById('file').files[0];
+        reads.readAsDataURL(f);
+        reads.onload = function(e) {
+        document.getElementById('pic').src = this.result;
+        };
+    }
   </script>
 {% endblock %}
 
@@ -24,25 +24,27 @@
 <div class="x_content">
     <!-- <h2>图书详情</h2>
     <hr/> -->
-    <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
-    <form action="" method="POST">
-        {{ form_group('name', '标题') }}
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="col-md-7 col-sm-7 col-xs-12" style="border:0px solid #e5e5e5;">
+        {{ form_group('bookname', '标题') }}
         {{ form_group('link', '链接') }}
         {{ form_group('come_from', '来源') }}
         {{ form_group('author', '作者') }}
         {{ form_group('publish', '出版商') }}
-        {{ form_group('description', '描述') }}
+        {{ form_group('depict', '描述') }}
         {{ form_group('price', '价格') }}
         {{ form_group('price_r', '原价') }}
         {{ form_group('grade', '评分') }}
         <button type="submit" class="btn btn-primary">添加图书</button>
-        </form>
+        
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12">
         <div class="product-image">
             <img id="pic" src="" width="100%" alt=""/>
         </div>
-        <input type="file" id="file" name="pic" value="上传文件" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG"/>
+        <input type="file" id="file" name="pics" value="上传文件" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG"/>
     </div>
+</form>
 </div>
 {% endblock %}
